@@ -10,7 +10,7 @@ public class Lesson {
     @Id
     @Column(name = "lesson_id")
     private int lesson_id;
-    @Column(name = "lesson_text")
+    @Column(name = "lesson_text",length = 1500)
     @NotEmpty(message = "Not Null")
     private String lessonText;
     @Column(name = "lesson_link")
