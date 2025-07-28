@@ -1,11 +1,11 @@
 package Com.Sravan.Configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.mchange.v2.c3p0.DriverManagerDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
@@ -23,13 +23,21 @@ public class DataSourceConfig {
 
     @Bean
     public DataSource dataSource() throws PropertyVetoException {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://mysql-3074c864-spring-boot-mysql.i.aivencloud.com:19025/lms");
-        dataSource.setUser(username);
-        dataSource.setPassword(password);
+        ComboPooledDataSource hikariConfig = new ComboPooledDataSource();
+        hikariConfig.setDriverClass("com.mysql.cj.jdbc.Driver");
+        hikariConfig.setJdbcUrl("jdbc:mysql://mysql-3074c864-spring-boot-mysql.i.aivencloud.com:19025/lms");
+        hikariConfig.setUser(username);
+        hikariConfig.setPassword(password);
+        System.out.println("*********************************");
         System.out.println("hello world");
-        return dataSource;
+
+
+        hikariConfig.setMinPoolSize(5);
+        hikariConfig.setAcquireIncrement(5);
+        hikariConfig.setMaxPoolSize(20);
+        hikariConfig.setMaxIdleTime(300);
+
+        return hikariConfig;
     }
 
 }
