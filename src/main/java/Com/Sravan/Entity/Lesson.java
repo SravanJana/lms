@@ -13,7 +13,7 @@ public class Lesson {
     @Column(name = "lesson_text", columnDefinition = "LONGTEXT")
     @NotEmpty(message = "Not Null")
     private String lessonText;
-    @Column(name = "lesson_link")
+    @Column(name = "lesson_link",columnDefinition = "LONGTEXT")
     @NotEmpty(message = "Not Null")
     private String lessonLink;
     @Column(name = "lesson_name")
